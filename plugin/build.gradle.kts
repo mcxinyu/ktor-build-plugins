@@ -10,6 +10,7 @@ configurations.all {
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.gradle.plugin.publish)
+    `maven-publish`
 }
 
 group = libs.plugins.ktor.get().pluginId
@@ -80,9 +81,9 @@ if (gradle.parent != null && gradle.parent!!.startParameter.isDryRun) {
     gradle.startParameter.isDryRun = true
 }
 
-tasks.named("publishPlugins") {
-    dependsOn("test", setupPluginUploadFromEnvironment)
-}
+// tasks.named("publishPlugins") {
+//     dependsOn("test", setupPluginUploadFromEnvironment)
+// }
 
 tasks.withType<Test> {
     useJUnitPlatform()
