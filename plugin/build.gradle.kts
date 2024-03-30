@@ -85,6 +85,30 @@ if (gradle.parent != null && gradle.parent!!.startParameter.isDryRun) {
 //     dependsOn("test", setupPluginUploadFromEnvironment)
 // }
 
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("XXX") {
+                afterEvaluate { from(components["java"]) }
+                // artifact(sourcesJar)
+                // artifact(dokkaJavadocJar)
+                //artifact(dokkaHtmlJar)
+            }
+        }
+        repositories {
+            maven {
+                name = "XXX"
+                url = uri("${project.buildDir}/repo")
+            }
+            maven {
+                name = "yunXiao"
+                url = uri("https://packages.aliyun.com/maven/repository/2011675-release-hz6rRf/")
+                credentials { username = "5ef809301732b0ac2fd33e49"; password = "_r=B(pBaU-7t" }
+            }
+        }
+    }
+}
+
 tasks.withType<Test> {
     useJUnitPlatform()
     testLogging.events(*TestLogEvent.values())
